@@ -18,10 +18,10 @@ module Data.Foreign.OOFFI
 
 import Prelude
 
-import Control.Bind      ((<=<))
-import Control.Monad.Eff (Eff())
-import Data.Function     -- runFnX
-import Foreign.Context   (getContext)
+import Control.Bind            ((<=<))
+import Control.Monad.Eff       (Eff())
+import Data.Function.Uncurried (runFn0, runFn1, runFn2, runFn3, runFn4, runFn5)
+import Foreign.Context         (getContext)
 
 -- Helper Functions -----------------------------------------------------------
 
@@ -30,8 +30,10 @@ foreign import instantiateImpl :: forall c fn ret eff. c -> fn (Eff eff ret)
 foreign import mapEff          :: forall fn ret eff. fn ret -> fn (Eff eff ret)
 foreign import unsafeGetter    :: forall o a. String -> o -> a
 
-(..) :: forall a b c d. (c -> d) -> (a -> b -> c) -> a -> b -> d
-(..) f g a b = f (g a b)
+compose2 :: forall a b c d. (c -> d) -> (a -> b -> c) -> a -> b -> d
+compose2 f g a b = f (g a b)
+
+infixr 9 compose2 as ..
 
 -- Property Access ------------------------------------------------------------
 

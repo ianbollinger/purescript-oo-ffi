@@ -4,18 +4,25 @@ import Prelude
 
 import Control.Apply              ((*>))
 import Control.Monad.Aff          (Aff()) -- MonadEff Aff
-import Control.Monad.Eff.Console  (CONSOLE(), log)
+import Control.Monad.Eff.Console  (CONSOLE())
 import Control.Monad.Eff          (Eff())
 import Control.Monad.Eff.Class    (liftEff)
 import Control.Monad.Eff.Random   (RANDOM(), random, randomBool)
 import Foreign.Context            (Context(), getContext)
+import Node.Process               (PROCESS())
 import Test.Spec                  (describe, it)
 import Test.Spec.Assertions       (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
-import Test.Spec.Runner           (Process(), run)
 import Test.Spec.QuickCheck       (quickCheck)
+import Test.Spec.Runner           (run)
 
-import Data.Foreign.OOFFI
+import Data.Foreign.OOFFI         ( method0, method0Eff, method1, method1Eff
+                                  , method2, method2Eff, method3, method3Eff
+                                  , method4, method4Eff, method5, method5Eff
+                                  , getter, modifier, setter
+                                  , instantiate0, instantiate1, instantiate2
+                                  , instantiate3, instantiate4, instantiate5
+                                  )
 
 foreign import data TestObj :: *
 foreign import data OOTEST :: !
@@ -23,12 +30,13 @@ foreign import data OOTEST :: !
 foreign import obj :: TestObj
 foreign import assignContext :: forall eff. Context -> Eff eff Unit
 
-type Effit ret = Eff (ooTest :: OOTEST, random :: RANDOM, console :: CONSOLE, process :: Process) ret
-type Affit ret = Aff (ooTest :: OOTEST, random :: RANDOM, console :: CONSOLE, process :: Process) ret
+type Effit ret = Eff (ooTest :: OOTEST, random :: RANDOM, console :: CONSOLE, process :: PROCESS) ret
+type Affit ret = Aff (ooTest :: OOTEST, random :: RANDOM, console :: CONSOLE, process :: PROCESS) ret
 
 lift' :: forall a. Effit a -> Affit a
 lift' = liftEff
 
+main :: Effit Unit
 main = (getContext >>= assignContext) *> run [consoleReporter] do
   describe "OOFFI" do
     describe "the method functions" do

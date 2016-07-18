@@ -18,18 +18,16 @@
     "tests"
   ],
   "dependencies": {
-    "purescript-control": "^0.3.0",
-    "purescript-eff": "^0.1.0",
-    "purescript-functions": "^0.1.0",
-    "purescript-context": "^1.0.0"
+    "purescript-context": "^1.0.0",
+    "purescript-control": "^1.0.0",
+    "purescript-eff": "^1.0.0",
+    "purescript-functions": "^1.0.1",
+    "purescript-prelude": "^1.0.1"
   },
   "devDependencies": {
-    "purescript-aff": "^0.11.3",
-    "purescript-random": "^0.2.2",
-    "purescript-spec": "^0.7.1",
-    "purescript-spec-quickcheck": "^0.3.0"
-  },
-  "resolutions": {
-    "purescript-spec": "^0.7.1"
+    "purescript-aff": "^1.0.0",
+    "purescript-random": "^1.0.0",
+    "purescript-spec": "^0.8.0",
+    "purescript-spec-quickcheck": "^0.9.1"
   }
 }
